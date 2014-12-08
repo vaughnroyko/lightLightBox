@@ -1,7 +1,7 @@
 /*!
  * lightLightbox
  * A single file, light, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, and zoom and automatic resizing.
- * Version: 1.0 (November 7th, 2014)
+ * Version: 1.1 (December 8th, 2014)
  * requires jQuery
  */
 
@@ -56,9 +56,10 @@ $(function () {
 		this.lightboxOpen = false;
 		this.gallery = [];
 		this.context = "";
+		this.noResize = false;
 
 		//Hide any lightbox HTML content by default
-		$( '#' + this.ids.content ).hide();
+		$( 'div.' + this.ids.content ).hide();
 
 		//Function called to re-size and re-position the image
 		this.resizeImage = function () {
@@ -108,8 +109,8 @@ $(function () {
 			$( '#' + this.ids.previousButton ).css( 'top', Math.floor( newImageHeight / 2 ) );
 			$( '#' + this.ids.imageCont ).width( Math.floor( newImageWidth ) );
 			$( '#' + this.ids.imageCont ).height( Math.floor( newImageHeight ) );
-			$( '#' + this.ids.image ).width( Math.floor( newImageWidth ) );
-			$( '#' + this.ids.image ).height( Math.floor( newImageHeight ) );
+			$( '#' + this.ids.imageId ).width( Math.floor( newImageWidth ) );
+			$( '#' + this.ids.imageId ).height( Math.floor( newImageHeight ) );
 		};
 
 		//Fade loading animation markers in and out.
@@ -135,7 +136,7 @@ $(function () {
 		};
 
 		//Load an image
-		this.loadImage = function ( imgURL, imgTitle, content ) {
+		this.loadImage = function ( imgURL, imgTitle, content, noResize ) {
 			$( 'body' ).append( this.template.imageBox );
 			//No loading for content
 			if ( this.context !== "content" ) {
@@ -145,11 +146,12 @@ $(function () {
 				$( this.template.nextButton ).appendTo( '#' + this.ids.imageCont );
 				$( this.template.previousButton ).appendTo( '#' + this.ids.imageCont );
 			}
+			this.noResize = false;
 			this.lightboxOpen = false;
 			if ( !content ) {
 				var loadintInt = setInterval( this.loadingAnim, 500 );
 				//Make sure it's completely loaded before we try to get the dimensions or fade it in
-				$( '<img id="' + this.ids.image + '" style="z-index: ' + ( this.options.overlayIndex + 2 ) + ';" src="'+ imgURL +'" alt="' + imgTitle + '">' ).load( function () {
+				$( '<img id="' + this.ids.imageId + '" style="z-index: ' + ( this.options.overlayIndex + 2 ) + ';" src="'+ imgURL +'" alt="' + imgTitle + '">' ).load( function () {
 					$( this ).appendTo( '#' + that.ids.imageCont );
 					that.origImageWidth = $( this ).width();
 					that.origImageHeight = $( this ).height();
@@ -166,9 +168,16 @@ $(function () {
 				});
 			} else {
 				//Content (HTML)
-				$( '#' + this.ids.imageCont ).append( '<div id="' + this.ids.image + '" style="background: #fff; overflow-y: auto; z-index: ' + ( this.options.overlayIndex + 2 ) + ';">' + content + '</div>' );
-				this.origImageWidth = $( '#' + this.ids.image ).outerWidth() - this.options.imagePadding;
-				this.origImageHeight = $( '#' + this.ids.image ).outerHeight() + 40;
+				$( '#' + this.ids.imageCont ).append( '<div id="' + this.ids.imageId + '" style="background: #fff; overflow-y: auto; z-index: ' + ( this.options.overlayIndex + 2 ) + ';">' + content + '</div>' );
+				//Setting to force width/height and no resize
+				if (noResize) {
+					this.noResize = true;
+					this.origImageWidth = noResize[0];
+					this.origImageHeight = noResize[1];
+				} else {
+					this.origImageWidth = $( '#' + this.ids.imageId ).outerWidth() - this.options.imagePadding;
+					this.origImageHeight = $( '#' + this.ids.imageId ).outerHeight() + 40;
+				}
 				this.setImage();
 			}
 		};
@@ -179,6 +188,7 @@ $(function () {
 			var imgTitle = "";
 			var rel = $( this ).attr( 'rel' );
 			var content = false;
+			var noResize = false;
 			if ( rel == 'lightbox' ) {
 				//Lightbox
 				imgURL = $( this ).attr( 'href' );
@@ -202,19 +212,25 @@ $(function () {
 				that.currentImage = 0;
 			} else {
 				//HTML Content
-				content = $( this ).next( 'div.' + that.ids.content ).html();
+				var contentSelector = $( this ).next( 'div.' + that.ids.content );
+				content = contentSelector.html();
+				var width = contentSelector.attr('width');
+				var height = contentSelector.attr('height');
+				if (width && height) {
+					noResize = [width, height];
+				}
 				that.galleryCount = 0;
 			}
 			that.context = rel;
 			$( 'body' ).append( that.template.overlayHTML );
 			$( '#' + that.ids.overlay ).fadeIn( 200 );
-			that.loadImage( imgURL, imgTitle, content );
+			that.loadImage( imgURL, imgTitle, content, noResize );
 			e.preventDefault();
 		});
 
 		//When the browser is resized, we need to re-position and re-size the image
 		$( window ).resize( function() {
-			if ( that.lightboxOpen ) {
+			if ( that.lightboxOpen && !that.noResize ) {
 				that.resizeImage();
 			}
 		});

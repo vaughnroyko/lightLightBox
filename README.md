@@ -1,4 +1,4 @@
-lightLightBox v1.0
+lightLightBox v1.1
 ==============
 
 A single file, light, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, zoom and automatic resizing (orientation change or browser resize).
@@ -35,6 +35,11 @@ Usage
     <h1>Test</h1>
     <p>Test</p>
 </div>
+```
+
+To force the size of the content lightbox (and disable dynamic resizing), use width and height attributes, like so:
+```html
+<div style="display: none;" class="lightlightbox-content" width="250" height="250"></div>
 ```
 
 All contexts can be used simultaneously. Everything is loaded and listened to for dynamically, so any options can be changed, or links/images can be added with JavaScript on the fly.

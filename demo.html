@@ -13,12 +13,8 @@
 	<h1>lightLightBox Demo</h1>
 	<h2>Lightbox</h2>
 	<p>Simply add a rel="lightbox" to any link that has a href with an image link. Any alt attached a nested image/thumbnail will show as a caption in the lightbox. By default, an automatic gallery will be created with next/previous controls will be added for all found rel="lightbox" anchors. Example:</p>
-	<a href="http://lorempixel.com/800/600/food/4/" rel="lightbox">
-		<img src="http://lorempixel.com/150/150/food/4/" alt="Yum!" />
-	</a>
-	<a href="http://lorempixel.com/800/600/food/5/" rel="lightbox">
-		<img src="http://lorempixel.com/150/150/food/5/" />
-	</a>
+	<a href="http://lorempixel.com/800/600/food/4/" rel="lightbox"><img src="http://lorempixel.com/150/150/food/4/" alt="Yum!" /></a>
+	<a href="http://lorempixel.com/800/600/food/5/" rel="lightbox"><img src="http://lorempixel.com/150/150/food/5/" /></a>
 
 	<h2>Gallery</h2>
 	<p>Alternatively you can load multiple images without having defined anchors/thumbnails. Simply add a rel="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:</p>
@@ -33,7 +29,14 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. Ut faucibus volutpat urna id facilisis. Vivamus ornare placerat nisl, eu facilisis nisi pellentesque sed. Cras egestas nunc eget dolor maximus, at pretium tellus euismod. Nunc consectetur eu sapien vitae molestie. Mauris odio metus, ornare vitae volutpat at, dictum nec nisi. Donec sed feugiat ex, ac condimentum ligula. Fusce facilisis purus et elit laoreet laoreet. Donec blandit felis mi, vel pharetra est imperdiet faucibus. Pellentesque in libero vestibulum, egestas orci nec, feugiat urna. Duis vel pulvinar ex. Mauris quis odio ultrices, molestie nunc maximus, pharetra elit. Donec volutpat mi ac sem mollis, ut varius ligula maximus. Cras aliquam orci at ultrices blandit. Etiam aliquet dolor nec massa varius, et volutpat diam pellentesque. Donec auctor nisl non tempor viverra.</p>
 		</div>
 	</div>
-
+	<p>Alternatively, you can specify a width and height to force the content to that size and disable the dynamic resizing capabilities by attaching a width and height attribute to the "lightlightbox-content" container. Example:</p>
+	<a href="#" rel="content">Content Link</a>
+	<div style="display: none;" class="lightlightbox-content" width="250" height="250">
+		<div style="padding: 10px;">
+			<h2>Test Content</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. </p>
+		</div>
+	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="lightlightbox.min.js"></script>
 </body>
