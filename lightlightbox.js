@@ -1,7 +1,7 @@
 /*!
  * lightLightbox
  * A single file, light, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, and zoom and automatic resizing.
- * Version: 1.1 (December 8th, 2014)
+ * Version: 1.1.1 (December 19th, 2014)
  * requires jQuery
  */
 
@@ -68,7 +68,7 @@ $(function () {
 			var scrollLeft = $( window ).scrollLeft();
 			var viewportHeight = $( window ).height();
 			var viewportWidth = $( window ).width();
-			var zoomWidth = window.innerWidth;
+			var zoomWidth = window.innerWidth - ( this.options.imagePadding );
 			var zoomHeight = window.innerHeight - ( this.options.imagePadding / 2 );
 			var fitting = false;
 			var imageHeight = this.origImageHeight;
@@ -101,7 +101,7 @@ $(function () {
 			}
 
 			var offsetHeight = scrollTop + ( viewportHeight / 2 ) - ( newImageHeight / 2 ) + ( this.options.imagePadding / 4 );
-			var offsetWidth = scrollLeft + ( viewportWidth / 2 ) - ( newImageWidth / 2 );
+			var offsetWidth = scrollLeft + ( viewportWidth / 2 ) - ( newImageWidth / 2 ) + ( this.options.imagePadding / 2 );
 
 			$( '#' + this.ids.imageCont ).css( 'top', Math.floor( offsetHeight ) );
 			$( '#' + this.ids.imageCont ).css( 'left', Math.floor( offsetWidth - 10 ) );
