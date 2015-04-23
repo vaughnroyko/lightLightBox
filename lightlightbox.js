@@ -1,7 +1,7 @@
 /*!
  * lightLightbox
  * A single file, light, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, and zoom and automatic resizing.
- * Version: 1.1.1 (December 19th, 2014)
+ * Version: 1.2 (April 23rd, 2015)
  * requires jQuery
  */
 
@@ -85,18 +85,20 @@ $(function () {
 			}
 
 			//Rescale the image and container proportionately
-			while ( !fitting ) {
-				if ( ( newImageWidth > viewportWidth ) ) {
-					newImageWidth = ( viewportWidth - this.options.imagePadding );
-					newImageHeight = ( imageHeight / imageWidth ) * newImageWidth;
-				} else if ( ( newImageHeight > viewportHeight ) ) {
-					newImageHeight = ( viewportHeight - this.options.imagePadding );
-					//Only scale width if not content lightbox
-					if ( this.context !== "content" ) {
-						newImageWidth = ( imageWidth / imageHeight ) * newImageHeight;
+			if ( !that.noResize ) {
+				while ( !fitting ) {
+					if ( ( newImageWidth > viewportWidth ) ) {
+						newImageWidth = ( viewportWidth - this.options.imagePadding );
+						newImageHeight = ( imageHeight / imageWidth ) * newImageWidth;
+					} else if ( ( newImageHeight > viewportHeight ) ) {
+						newImageHeight = ( viewportHeight - this.options.imagePadding );
+						//Only scale width if not content lightbox
+						if ( this.context !== "content" ) {
+							newImageWidth = ( imageWidth / imageHeight ) * newImageHeight;
+						}
+					} else {
+						fitting = true;
 					}
-				} else {
-					fitting = true;
 				}
 			}
 
@@ -130,13 +132,16 @@ $(function () {
 		this.setImage = function () {
 			//Image uses visibility instead if display to fix IE not being able to get height or width on display: none elements
 			$( '#' + this.ids.imageCont ).css( 'visibility', 'visible' );
-			this.lightboxOpen = true;
+			that.lightboxOpen = true;
 			this.resizeImage();
 			$( '#' + this.ids.imageCont ).animate( {opacity: 1}, 400 );
 		};
 
 		//Load an image
 		this.loadImage = function ( imgURL, imgTitle, content, noResize ) {
+			if (!that.lightboxOpen) {
+				return;
+			}
 			$( 'body' ).append( this.template.imageBox );
 			//No loading for content
 			if ( this.context !== "content" ) {
@@ -147,7 +152,6 @@ $(function () {
 				$( this.template.previousButton ).appendTo( '#' + this.ids.imageCont );
 			}
 			this.noResize = false;
-			this.lightboxOpen = false;
 			if ( !content ) {
 				var loadintInt = setInterval( this.loadingAnim, 500 );
 				//Make sure it's completely loaded before we try to get the dimensions or fade it in
@@ -183,10 +187,13 @@ $(function () {
 		};
 
 		//Find all links on the page for lightbox, gallery and content
-		$( 'body' ).on( 'click', 'a[rel="content"], a[rel="gallery"], a[rel="lightbox"]', function(e) {
+		$( 'body' ).on( 'click', 'a[data-lightbox="content"], a[data-lightbox="gallery"], a[rel="lightbox"], a[data-lightbox="lightbox"]', function(e) {
 			var imgURL = "";
 			var imgTitle = "";
 			var rel = $( this ).attr( 'rel' );
+			if (!rel) {
+				rel = $( this ).data( 'lightbox' );
+			}
 			var content = false;
 			var noResize = false;
 			if ( rel == 'lightbox' ) {
@@ -196,8 +203,10 @@ $(function () {
 				if ( !imgTitle ) {
 					imgTitle = "";
 				}
-				that.galleryCount = $( 'a[rel="lightbox"]' ).length;
-				that.currentImage = $( 'a[rel="lightbox"]' ).index( this );
+				//Support both a rel and data lightbox attribute
+				var lightboxCount = $( 'a[rel="lightbox"], a[data-lightbox="lightbox"]' );
+				that.galleryCount = lightboxCount.length;
+				that.currentImage = lightboxCount.index( this );
 			} else if ( rel == 'gallery' ) {
 				//Gallery
 				that.subGalleryId = $( this ).attr( 'id' );
@@ -214,13 +223,14 @@ $(function () {
 				//HTML Content
 				var contentSelector = $( this ).next( 'div.' + that.ids.content );
 				content = contentSelector.html();
-				var width = contentSelector.attr('width');
-				var height = contentSelector.attr('height');
+				var width = contentSelector.data('width');
+				var height = contentSelector.data('height');
 				if (width && height) {
 					noResize = [width, height];
 				}
 				that.galleryCount = 0;
 			}
+			that.lightboxOpen = true;
 			that.context = rel;
 			$( 'body' ).append( that.template.overlayHTML );
 			$( '#' + that.ids.overlay ).fadeIn( 200 );
@@ -230,26 +240,21 @@ $(function () {
 
 		//When the browser is resized, we need to re-position and re-size the image
 		$( window ).resize( function() {
-			if ( that.lightboxOpen && !that.noResize ) {
+			if ( that.lightboxOpen ) {
 				that.resizeImage();
 			}
 		});
 
 		//Fade out and remove the overlay/image/container if you click the close button or the overlay
 		$( 'body' ).on( 'click', '#' + this.ids.overlay + ', #' + this.ids.closeButton, function() {
-			if ( !that.lightboxOpen ) {
-				return false;
-			}
-			$( '#' + that.ids.overlay ).fadeOut( 200, function() { $( this ).remove(); } );
+			$( '#' + that.ids.overlay ).fadeOut( 400, function() { $( this ).remove(); } );
 			$( '#' + that.ids.imageCont ).fadeOut( 400, function() { $( this ).remove(); } );
 			that.lightboxOpen = false;
 		});
 
 		//Next/Previous button
 		$( 'body' ).on( 'click', '#' + this.ids.previousButton + ', #' + this.ids.nextButton, function() {
-			if ( !that.lightboxOpen ) {
-				return false;
-			}
+			that.lightboxOpen = true;
 			if ( $( this ).attr( 'id' ) == that.ids.nextButton ) {
 				//Next
 				that.currentImage++;
@@ -270,8 +275,9 @@ $(function () {
 					imgURL = that.gallery[that.subGalleryId][that.currentImage][0];
 					imgTitle = that.gallery[that.subGalleryId][that.currentImage][1];
 				} else {
-					imgURL = $( 'a[rel="lightbox"]' ).eq( that.currentImage ).attr( 'href' );
-					imgTitle = $( 'a[rel="lightbox"]' ).eq( that.currentImage ).find( 'img' ).attr( 'alt' );
+					var lightboxes = $( 'a[rel="lightbox"], a[data-lightbox="lightbox"]' );
+					imgURL = lightboxes.eq( that.currentImage ).attr( 'href' );
+					imgTitle = lightboxes.eq( that.currentImage ).find( 'img' ).attr( 'alt' );
 				}
 				that.loadImage( imgURL, imgTitle );
 			});
