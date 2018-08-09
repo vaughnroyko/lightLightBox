@@ -13,31 +13,35 @@
 	<h1>lightLightBox Demo</h1>
 	<h2>Lightbox</h2>
 	<p>Simply add a rel="lightbox" or data-lightbox="lightbox" to any link that has a href with an image link. Any alt attribute attached in a nested image/thumbnail will show as a caption in the lightbox. By default, an automatic gallery will be created with next/previous controls between all the lightbox rel/attributes found. Example:</p>
-	<a href="http://lorempixel.com/800/600/food/4/" rel="lightbox"><img src="http://lorempixel.com/150/150/food/4/" alt="Yum!" /></a>
-	<a href="http://lorempixel.com/800/600/food/5/" data-lightbox="lightbox"><img src="http://lorempixel.com/150/150/food/5/" alt="" /></a>
+	<a href="https://dummyimage.com/3840x2160/404040/ffffff.jpg&text=lightLightBox" rel="lightbox"><img src="https://dummyimage.com/200x200/404040/ffffff.jpg&text=lightLightBox" alt="Testing 1 2 3" /></a>
+	<a href="https://dummyimage.com/2160x3840/000000/ffffff.jpg&text=lightLightBox" data-lightbox="lightbox">
+		<img src="https://dummyimage.com/200x200/000000/ffffff.jpg&text=lightLightBox" alt="" />
+	</a>
 
 	<h2>Gallery</h2>
 	<p>Alternatively you can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:</p>
-	<a href="#" data-lightbox="gallery" id="test-gallery" data-gallery="http://lorempixel.com/800/600/food/1/,Yum!;http://lorempixel.com/800/600/food/2/,;http://lorempixel.com/800/600/food/3/,Tasty!">Gallery Link</a>
+	<a href="#" data-lightbox="gallery" id="test-gallery" data-gallery="https://dummyimage.com/1920x1080/404040/ffffff.jpg&text=lightLightBox,Marco!;https://dummyimage.com/600x1200/000000/ffffff.jpg&text=lightLightBox,;https://dummyimage.com/1200x400/707070/ffffff.jpg&text=lightLightBox,Polo!">
+		Gallery Link
+	</a>
 
 	<h2>Content</h2>
 	<p>Load HTML-based content in the lightbox using data-lightbox="content" and adjacent HTML element with the "lightlightbox-content" class. Example:</p>
 	<a href="#" data-lightbox="content">Content Link</a>
 	<div style="display: none;" class="lightlightbox-content">
-		<div style="padding: 25px;">
+		<div style="padding: 10px 25px;">
 			<h2>Test Content</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. Ut faucibus volutpat urna id facilisis. Vivamus ornare placerat nisl, eu facilisis nisi pellentesque sed. Cras egestas nunc eget dolor maximus, at pretium tellus euismod. Nunc consectetur eu sapien vitae molestie. Mauris odio metus, ornare vitae volutpat at, dictum nec nisi. Donec sed feugiat ex, ac condimentum ligula. Fusce facilisis purus et elit laoreet laoreet. Donec blandit felis mi, vel pharetra est imperdiet faucibus. Pellentesque in libero vestibulum, egestas orci nec, feugiat urna. Duis vel pulvinar ex. Mauris quis odio ultrices, molestie nunc maximus, pharetra elit. Donec volutpat mi ac sem mollis, ut varius ligula maximus. Cras aliquam orci at ultrices blandit. Etiam aliquet dolor nec massa varius, et volutpat diam pellentesque. Donec auctor nisl non tempor viverra.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. Ut faucibus volutpat urna id facilisis. Vivamus ornare placerat nisl, eu facilisis nisi pellentesque sed. Cras egestas nunc eget dolor maximus, at pretium tellus euismod.</p>
 		</div>
 	</div>
 	<p>Alternatively, you can specify a width and height to force the content to that size and disable the dynamic resizing capabilities by attaching a data-width and data-height attribute to the "lightlightbox-content" container. Example:</p>
 	<a href="#" data-lightbox="content">Content Link</a>
-	<div style="display: none;" class="lightlightbox-content" data-width="250" data-height="250">
-		<div style="padding: 10px;">
+	<div style="display: none;" class="lightlightbox-content" data-width="380" data-height="250">
+		<div style="padding: 10px 25px;">
 			<h2>Test Content</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. </p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut erat ut augue cursus sollicitudin non tempus dolor. Ut faucibus volutpat urna id facilisis. Vivamus ornare placerat nisl, eu facilisis nisi pellentesque sed. Cras egestas nunc eget dolor maximus, at pretium tellus euismod.</p>
 		</div>
 	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="lightlightbox.min.js"></script>
+	<script type="text/javascript" src="lightlightbox.min.js"></script>
 </body>
 </html>

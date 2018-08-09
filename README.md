@@ -1,17 +1,12 @@
-lightLightBox v1.2
+lightLightBox v1.3
 ==============
 
-A single file, light, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, zoom and automatic resizing (orientation change or browser resize).
-
-Requires
---------------
-
-jQuery.
+A tiny single file, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, zoom, and automatic resizing (orientation change or browser resize).
 
 Support
 --------------
 
-Everything? Well, besides <= IE6.
+Mostly everything, including IE7 and above!
 
 Usage
 --------------
@@ -51,6 +46,16 @@ Demo
 
 Changelog
 --------------
+
+**Version: 1.3 (August 9th, 2018)**
+
+* lightLightBox no longer requires jQuery.
+* Improved content resizing by calculating the content's width and height more accurately.
+* Animations now use CSS, removing them for all browsers without support for transitions.
+* Fixed some issues where inconsistent effects/events would fire if rapidly loading a lightbox.
+* Buttons and loading dots are no longer selectable/highlightable.
+* Removed scrollbars/scrolling when a lightbox is opened (for better device compatibility for width calculations).
+* Improved performance heavily.
 
 **Version: 1.2 (April 22nd, 2015)**
 
