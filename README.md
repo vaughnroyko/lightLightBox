@@ -1,7 +1,7 @@
-lightLightBox v1.3
+lightLightBox v1.3.1
 ==============
 
-A tiny single file, dynamic lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, mobile/tablet browsers, zoom, and automatic resizing (orientation change or browser resize).
+A "light" single-file lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, dynamic linking (add new entries with JavaScript), mobile/tablet browsers, zoom, and automatic resizing (orientation change or browser resize).
 
 Support
 --------------
@@ -18,7 +18,12 @@ Usage
 </a>
 ```
 
-**Gallery:** Alternatively you can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:
+Alternatively, you can load images into a lightbox without having to define a link's "href" attribute by setting it to "#". It will then use the image's "src" attribute. This is useful if you aren't using separate thumbnail images. Example:
+<a href="#" rel="lightbox">
+    <img src="test.jpg" alt="Test Picture" />
+</a>
+
+**Gallery:** You can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:
 ```html
 <a href="#" data-lightbox="gallery" id="test-gallery" data-gallery="test.jpg,Test Picture;test2.jpg,Test Picture #2">Gallery</a>
 ```
@@ -32,7 +37,7 @@ Usage
 </div>
 ```
 
-To force the size of the content lightbox (and disable dynamic resizing), use width and height data attributes, like so:
+Alternatively, you can specify a width and height to force the content to that size and disable the dynamic resizing capabilities by attaching a data-width and data-height attribute to the "lightlightbox-content" container. Example:
 ```html
 <div style="display: none;" class="lightlightbox-content" data-width="250" data-height="250"></div>
 ```
@@ -46,6 +51,13 @@ Demo
 
 Changelog
 --------------
+
+**Version: 1.3.1 (August 22nd, 2018)**
+
+* Lightbox links are now listened to dynamically (you can once again add new lightbox links with JavaScript).
+* Added support for using `href="#"` to use the image's `src` attribute to open into a lightbox.
+* Fixed an issue where controls could get too close to the edge.
+* Reduced minified script size.
 
 **Version: 1.3 (August 9th, 2018)**
 

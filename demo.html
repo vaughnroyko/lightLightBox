@@ -18,10 +18,17 @@
 		<img src="https://dummyimage.com/200x200/000000/ffffff.jpg&text=lightLightBox" alt="" />
 	</a>
 
+	<p>Alternatively, you can load images into a lightbox without having to define a link's "href" attribute by setting it to "#". It will then use the image's "src" attribute. This is useful if you aren't using separate thumbnail images. Example:</p>
+	<a href="#" rel="lightbox"><img width="200" height="200" src="https://dummyimage.com/800x800/202020/ffffff.jpg&text=lightLightBox" alt="" /></a>
+
 	<h2>Gallery</h2>
-	<p>Alternatively you can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:</p>
+	<p>You can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:</p>
 	<a href="#" data-lightbox="gallery" id="test-gallery" data-gallery="https://dummyimage.com/1920x1080/404040/ffffff.jpg&text=lightLightBox,Marco!;https://dummyimage.com/600x1200/000000/ffffff.jpg&text=lightLightBox,;https://dummyimage.com/1200x400/707070/ffffff.jpg&text=lightLightBox,Polo!">
-		Gallery Link
+		Gallery Link #1
+	</a>
+	<p>You can have multiple galleries, as long as you use a unique id:</p>
+	<a href="#" data-lightbox="gallery" id="test-gallery-2" data-gallery="https://dummyimage.com/1920x1920/303030/ffffff.jpg&text=lightLightBox,Lorem...;https://dummyimage.com/1080x1080/606060/ffffff.jpg&text=lightLightBox,Ipsum...">
+		Gallery Link #2
 	</a>
 
 	<h2>Content</h2>
@@ -35,7 +42,7 @@
 		</div>
 	</div>
 	<p>Alternatively, you can specify a width and height to force the content to that size and disable the dynamic resizing capabilities by attaching a data-width and data-height attribute to the "lightlightbox-content" container. Example:</p>
-	<a href="#" data-lightbox="content">Content Link</a>
+	<a href="#" data-lightbox="content">Content Link with Width/Height</a>
 	<div style="display: none;" class="lightlightbox-content" data-width="380" data-height="250">
 		<div style="padding: 10px 25px;">
 			<h2>Test Content</h2>
