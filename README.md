@@ -19,9 +19,11 @@ Usage
 ```
 
 Alternatively, you can load images into a lightbox without having to define a link's "href" attribute by setting it to "#". It will then use the image's "src" attribute. This is useful if you aren't using separate thumbnail images. Example:
+```html
 <a href="#" rel="lightbox">
     <img src="test.jpg" alt="Test Picture" />
 </a>
+```
 
 **Gallery:** You can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:
 ```html
