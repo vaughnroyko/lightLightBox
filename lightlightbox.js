@@ -1,5 +1,5 @@
 /*!
- * lightLightbox v1.3.1 https://github.com/vaughnroyko/lightLightBox
+ * lightLightbox v1.3.2 https://github.com/vaughnroyko/lightLightBox
  */
 
 var LightLightBox = function() {
@@ -350,7 +350,7 @@ var LightLightBox = function() {
 				if (imgURL === "#" || imgURL === window.location.href + "#") {
 					imgURL = that.getImageAttrInNode(that.lightboxGallery[that.currentImage].childNodes, 'src');
 				}
-				imgTitle = that.getImageAttrInNode(that.lightboxGallery[that.currentImage].childNodes, 'attribute');
+				imgTitle = that.getImageAttrInNode(that.lightboxGallery[that.currentImage].childNodes, 'alt');
 			}
 	
 			that.loadImage( imgURL, imgTitle );
@@ -397,7 +397,7 @@ var LightLightBox = function() {
 			if (imgURL === "#" || imgURL === window.location.href + "#") {
 				imgURL = this.getImageAttrInNode(element.childNodes, 'src');
 			}
-			imgTitle = this.getImageAttrInNode(element.childNodes, 'attribute');
+			imgTitle = this.getImageAttrInNode(element.childNodes, 'alt');
 			this.galleryCount = this.lightboxGallery.length;
 			this.currentImage = index;
 
@@ -477,10 +477,14 @@ var LightLightBox = function() {
 								that.lightboxGallery.push(anchors[a]);
 							}
 						}
+						var lightBoxAnchor = 0;
 						for (var b = 0; b < anchors.length; b++) {
-							if (elements[i] === anchors[b]) {
-								that.imageClick(elements[i], b);
-								imageClick = true;
+							if (that.isLightboxLink(anchors[b])) {
+								if (elements[i] === anchors[b]) {
+									that.imageClick(elements[i], lightBoxAnchor);
+									imageClick = true;
+								}
+								lightBoxAnchor++;
 							}
 						}
 					} else if (elements[i].getAttribute( "data-lightbox" ) && (elements[i].getAttribute( "data-lightbox" ) === "gallery" || elements[i].getAttribute( "data-lightbox" ) === "content")) {

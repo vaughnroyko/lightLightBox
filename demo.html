@@ -21,6 +21,8 @@
 	<p>Alternatively, you can load images into a lightbox without having to define a link's "href" attribute by setting it to "#". It will then use the image's "src" attribute. This is useful if you aren't using separate thumbnail images. Example:</p>
 	<a href="#" rel="lightbox"><img width="200" height="200" src="https://dummyimage.com/800x800/202020/ffffff.jpg&text=lightLightBox" alt="" /></a>
 
+	<p><small>Note: This will not work properly in the htmlpreview.github.io demo preview as it will prepend a link to "#". Try this locally instead.</small></p>
+
 	<h2>Gallery</h2>
 	<p>You can load multiple images without having defined anchors/thumbnails. Simply add a data-lightbox="gallery", assign a unique id, and include data-gallery in the form of "url,caption;url,caption". Example:</p>
 	<a href="#" data-lightbox="gallery" id="test-gallery" data-gallery="https://dummyimage.com/1920x1080/404040/ffffff.jpg&text=lightLightBox,Marco!;https://dummyimage.com/600x1200/000000/ffffff.jpg&text=lightLightBox,;https://dummyimage.com/1200x400/707070/ffffff.jpg&text=lightLightBox,Polo!">
