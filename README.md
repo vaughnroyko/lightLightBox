@@ -1,4 +1,4 @@
-lightLightBox v1.3.2
+lightLightBox v1.3.3
 ==============
 
 A "light" single-file lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, dynamic linking (add new entries with JavaScript), mobile/tablet browsers, zoom, and automatic resizing (orientation change or browser resize).
@@ -54,7 +54,11 @@ Demo
 Changelog
 --------------
 
-**Version: 1.3.2 (November 16, 2018)**
+**Version: 1.3.3 (January 4th, 2019)**
+
+* Forced the position of the lightbox container to counter some common site styles that add relative positioning to all elements.
+
+**Version: 1.3.2 (November 16th, 2018)**
 
 * Fixed a typo leading to no captions being set for normal lightbox usage.
 * Fixed incorrect indexing for click events, leading to incorrect automatic image gallery ordering.

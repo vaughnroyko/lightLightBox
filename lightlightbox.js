@@ -1,5 +1,5 @@
 /*!
- * lightLightbox v1.3.2 https://github.com/vaughnroyko/lightLightBox
+ * lightLightbox v1.3.3 https://github.com/vaughnroyko/lightLightBox
  */
 
 var LightLightBox = function() {
@@ -44,7 +44,7 @@ var LightLightBox = function() {
 		previousButton: '<div style="'+ this.controlStyle + 'left:-40px;' + this.unselectable + '" id="' + this.ids.previousButton + '">&lsaquo;</div>',
 		nextButton: '<div style="'+ this.controlStyle + 'right:-40px;' + this.unselectable + '" id="' + this.ids.nextButton + '">&rsaquo;</div>',
 		caption: '<div id="' + this.ids.caption + '" style="position:absolute;padding:15px;bottom:0;left:0;color:#fff;background:#000;box-sizing:border-box;background:rgba(0,0,0,' + this.options.overlayOpacity + ')"></div>',
-		container: '<div id="' + this.ids.container + '"></div>'
+		container: '<div id="' + this.ids.container + '" style="position:static;"></div>'
 	};
 
 	// Initialize all variables
