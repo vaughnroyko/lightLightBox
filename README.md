@@ -1,4 +1,4 @@
-lightLightBox v1.3.3
+lightLightBox v1.3.4
 ==============
 
 A "light" single-file lightbox solution with ability to load images/HTML into a lightbox with gallery support. Support for IE7+, dynamic linking (add new entries with JavaScript), mobile/tablet browsers, zoom, and automatic resizing (orientation change or browser resize).
@@ -53,6 +53,12 @@ Demo
 
 Changelog
 --------------
+
+**Version: 1.3.4 (October 12th, 2021)**
+
+* Fixed an error when SVG (and potentially other) elements were used on pages with class names.
+* lightLightBox is now initialized after the document is loaded (DOMContentLoaded) instead of after the document and all assets are loaded (load).
+* The minified file is now compressed even further.
 
 **Version: 1.3.3 (January 4th, 2019)**
 

@@ -1,5 +1,5 @@
 /*!
- * lightLightbox v1.3.3 https://github.com/vaughnroyko/lightLightBox
+ * lightLightbox v1.3.4 https://github.com/vaughnroyko/lightLightBox
  */
 
 var LightLightBox = function() {
@@ -238,12 +238,12 @@ var LightLightBox = function() {
 			this.loadingTimer = setInterval( this.loadingAnim, 400 );
 			var imageHTML = '<img id="' + this.ids.imageId + '" style="z-index:' + ( this.options.overlayIndex + 2 ) + ';" src="' + imgURL + '" alt="' + imgTitle + '" width="0" height="0">';
 			this.image = new Image();
-			
+
 			// Make sure it's completely loaded before we try to get the dimensions or fade it in
 			this.image.onload = function() {
 				that.addNavigation();
 				that.stopLoading();
-				
+
 				that.append(that.id( that.ids.imageCont ), imageHTML);
 
 				that.origImageWidth = that.image.width;
@@ -275,7 +275,7 @@ var LightLightBox = function() {
 				this.origImageHeight = null;
 				this.resizeImage();
 			}
-			
+
 			this.setImage();
 		}
 	};
@@ -352,7 +352,7 @@ var LightLightBox = function() {
 				}
 				imgTitle = that.getImageAttrInNode(that.lightboxGallery[that.currentImage].childNodes, 'alt');
 			}
-	
+
 			that.loadImage( imgURL, imgTitle );
 			that.transitioning = false;
 
@@ -425,7 +425,7 @@ var LightLightBox = function() {
 				content = contentSelector.innerHTML;
 				var width = contentSelector.getAttribute('data-width');
 				var height = contentSelector.getAttribute('data-height');
-	
+
 				if (width && height) {
 					noResize = [width, height];
 				}
@@ -452,10 +452,13 @@ var LightLightBox = function() {
 	// IE7/8 doesn't have getElementsByClassName, make our own
 	var lightBoxContents = document.getElementsByTagName("*");
 	for (var i = 0; i < lightBoxContents.length; i++) {
-		var names = lightBoxContents[i].className.split(' ');
-		for (var n = 0; n < names.length; n++) {
-			if (names[n] == this.ids.content) {
-				this.hide( lightBoxContents[i] );
+		var className = lightBoxContents[i].getAttribute('className');
+		if (className) {
+			var names = className.split(' ');
+			for (var n = 0; n < names.length; n++) {
+				if (names[n] == this.ids.content) {
+					this.hide( lightBoxContents[i] );
+				}
 			}
 		}
 	}
@@ -516,6 +519,6 @@ var LightLightBox = function() {
 };
 
 // This will intialize the lightBox without needing to call it specifically. You can get and set dynamically using the lightLightBox global (example: lightLightBox.options.imagePadding = 200;)
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
 	lightLightBox = new LightLightBox();
-};
+});
